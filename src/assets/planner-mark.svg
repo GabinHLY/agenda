@@ -1,0 +1,8 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Planner mark">
+  <rect x="8" y="14" width="112" height="106" rx="22" fill="#0f172a"/>
+  <rect x="24" y="30" width="80" height="12" rx="6" fill="#f8fafc" opacity="0.85"/>
+  <rect x="24" y="52" width="52" height="12" rx="6" fill="#f8fafc" opacity="0.85"/>
+  <rect x="24" y="74" width="68" height="12" rx="6" fill="#f8fafc" opacity="0.85"/>
+  <circle cx="98" cy="84" r="16" fill="#22c55e"/>
+  <path d="M90 84l6 6 12-12" stroke="#022c22" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
