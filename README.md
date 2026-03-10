@@ -35,3 +35,30 @@ cp .env.example .env
 npm run build
 npm run start:api
 ```
+
+## Production with Docker Compose (Coolify)
+
+This repository includes a production stack with:
+- `back`: Node/Express API
+- `front`: static frontend build served by Nginx
+- `caddy`: reverse proxy routing `/api` to backend and all other paths to frontend
+
+Files:
+- `docker-compose.yml`
+- `Dockerfile.backend`
+- `Dockerfile.frontend`
+- `Caddyfile`
+
+Run locally:
+
+```bash
+docker compose up -d --build
+```
+
+Important production variables:
+- `JWT_SECRET`: set a strong secret in Coolify environment variables
+
+Notes:
+- API is exposed behind Caddy at `/api`
+- Frontend is built with `VITE_API_URL=/api`
+- SQLite data is persisted in Docker volume `calendar_db`
