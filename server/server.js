@@ -91,6 +91,15 @@ function createShareCode() {
   return Math.random().toString(36).slice(2, 8).toUpperCase();
 }
 
+app.get("/", (_req, res) => {
+  res.status(200).json({
+    ok: true,
+    service: "calendar-api",
+    message: "API is running. The frontend should be served by the reverse proxy.",
+    health: "/api/health",
+  });
+});
+
 app.get("/api/health", (_req, res) => {
   res.json({ ok: true });
 });

@@ -30,6 +30,12 @@ services:
       args:
         VITE_API_URL: /api
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
   caddy:
     build:
@@ -39,7 +45,7 @@ services:
       back:
         condition: service_healthy
       front:
-        condition: service_started
+        condition: service_healthy
     expose:
       - "80"
     restart: unless-stopped

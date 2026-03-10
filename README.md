@@ -68,3 +68,26 @@ Coolify note:
 - Do not publish host ports in `docker-compose.yml` (avoid `80:80` / `443:443`). Coolify's proxy already owns those ports.
 - Keep Caddy internal (`expose: 80`) and configure the public domain on the `caddy` service in Coolify.
 - Caddy config is baked into the image via `Dockerfile.caddy` (no bind mount), which avoids Coolify file-mount edge cases.
+- Make sure the public domain is attached to the `caddy` service, not `back` and not `front`.
+- If you see `Cannot GET /` on the public URL, Coolify is almost certainly reaching the API container directly instead of `caddy`.
+- If `https://your-domain/api/health` does not return `{"ok":true}`, inspect the `caddy` and `back` service logs first.
+
+### Coolify checklist
+
+1. Deploy this repository as a Docker Compose application.
+2. Attach the public domain to the `caddy` service on port `80`.
+3. Set a strong `JWT_SECRET` environment variable.
+4. Redeploy the stack.
+5. Validate these URLs:
+	- `/` -> should return the React app
+	- `/api/health` -> should return `{"ok":true}`
+
+Expected service roles:
+- `caddy`: the only public entrypoint
+- `front`: internal static frontend served through `caddy`
+- `back`: internal API served through `caddy` at `/api`
+
+Troubleshooting:
+- Public URL returns `Cannot GET /`: the domain is pointing to `back` instead of `caddy`.
+- Public URL returns 502/503: `caddy` cannot reach `front` or `back`, or one container is not healthy.
+- `/api/health` fails but `/` loads: the proxy to `back:8787` is broken or the API container is failing to start.
