@@ -32,7 +32,9 @@ services:
     restart: unless-stopped
 
   caddy:
-    image: caddy:2.8-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile.caddy
     depends_on:
       back:
         condition: service_healthy
@@ -40,8 +42,6 @@ services:
         condition: service_started
     expose:
       - "80"
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
     restart: unless-stopped
 
 volumes:

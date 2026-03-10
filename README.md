@@ -47,6 +47,7 @@ Files:
 - `docker-compose.yml`
 - `Dockerfile.backend`
 - `Dockerfile.frontend`
+- `Dockerfile.caddy`
 - `Caddyfile`
 
 Run locally:
@@ -66,3 +67,4 @@ Notes:
 Coolify note:
 - Do not publish host ports in `docker-compose.yml` (avoid `80:80` / `443:443`). Coolify's proxy already owns those ports.
 - Keep Caddy internal (`expose: 80`) and configure the public domain on the `caddy` service in Coolify.
+- Caddy config is baked into the image via `Dockerfile.caddy` (no bind mount), which avoids Coolify file-mount edge cases.
