@@ -62,3 +62,7 @@ Notes:
 - API is exposed behind Caddy at `/api`
 - Frontend is built with `VITE_API_URL=/api`
 - SQLite data is persisted in Docker volume `calendar_db`
+
+Coolify note:
+- Do not publish host ports in `docker-compose.yml` (avoid `80:80` / `443:443`). Coolify's proxy already owns those ports.
+- Keep Caddy internal (`expose: 80`) and configure the public domain on the `caddy` service in Coolify.

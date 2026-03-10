@@ -38,8 +38,8 @@ services:
         condition: service_healthy
       front:
         condition: service_started
-    ports:
-      - "80:80"
+    expose:
+      - "80"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
     restart: unless-stopped
